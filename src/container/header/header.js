@@ -13,6 +13,9 @@ export class Header extends Component {
                         <li className="nav-item active">
                             <NavLink to="/posts" className="nav-link">Posts</NavLink>
                         </li>
+                        <li className="nav-item active">
+                            <NavLink to="/add-post" className="nav-link">Add Post</NavLink>
+                        </li>
                         </ul>
                     </div>
                 </nav>
