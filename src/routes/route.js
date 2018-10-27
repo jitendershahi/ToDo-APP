@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 
 import { Route, Switch } from 'react-router-dom'
-import { Posts } from '../container/posts/posts';
-
+import Posts from '../container/posts/posts'
 
 export class Routes extends Component {
     render() {

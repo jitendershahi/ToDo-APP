@@ -11,11 +11,12 @@ import { Provider } from 'react-redux';
 import * as serviceWorker from './serviceWorker';
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
+import { PostsReducer } from './store/reducers/postsreducer';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({
-
+    posts:PostsReducer
 })
 
 const store = createStore(rootReducer, composeEnhancers(
@@ -24,7 +25,7 @@ const store = createStore(rootReducer, composeEnhancers(
 // console.log($,Popper)
 
 const app = (
-    <Provider>
+    <Provider store={store}>
         <BrowserRouter basename="/">
             <App />
         </BrowserRouter>
