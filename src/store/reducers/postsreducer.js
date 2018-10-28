@@ -10,6 +10,12 @@ export const PostsReducer = (state=initialState.posts, action) => {
         case actionTypes.LOAD_POSTS_SUCCESS:
         return action.data
 
+        case actionTypes.CREATE_POST_SUCCESS:
+        return [
+            ...state,
+            Object.assign({}, action.data)
+        ]
+
         default:
         return state
     }

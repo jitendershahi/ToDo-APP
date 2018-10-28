@@ -2,6 +2,9 @@ import React,{ Component } from 'react'
 import Input  from '../../components/input/input';
 import TextArea from '../../components/textarea/textarea';
 
+import * as actionCreator from '../../store/actions/postactioncreator'
+import { connect } from 'react-redux';
+
 import './addpost.css';
 
 export class AddPost extends Component {
@@ -11,6 +14,10 @@ export class AddPost extends Component {
             body:''
         },
         error:{}
+    }
+
+    componentDidMount(){
+        console.log(this.props)
     }
 
     handleForm = (event) =>{
@@ -47,6 +54,9 @@ export class AddPost extends Component {
         event.preventDefault()
         if(!this.checkValidity()) return;
         console.log(this.state.postForm)
+        this.props.createPost(this.state.postForm)
+        this.props.history.push('/posts')
+
     }
 
 
@@ -83,5 +93,16 @@ export class AddPost extends Component {
     }
 }
 
+const mapStateToProps = state => {
+    return {
 
-export default AddPost;
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        createPost:(postForm) => dispatch(actionCreator.createPost(postForm))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddPost);
