@@ -5,6 +5,8 @@ import TextArea from '../../components/textarea/textarea';
 import * as actionCreator from '../../store/actions/postactioncreator'
 import { connect } from 'react-redux';
 
+import toastr from 'toastr'
+
 import './addpost.css';
 
 export class AddPost extends Component {
@@ -53,8 +55,9 @@ export class AddPost extends Component {
     submitForm = (event) => {
         event.preventDefault()
         if(!this.checkValidity()) return;
-        console.log(this.state.postForm)
         this.props.createPost(this.state.postForm)
+        this.props.history.push('/posts')
+        toastr.success("Post Saved!!")
         this.props.history.push('/posts')
 
     }
