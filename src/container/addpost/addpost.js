@@ -11,18 +11,18 @@ import './addpost.css';
 
 export class AddPost extends Component {
     state = {
-        postForm:{
-            title:'',
-            body:''
-        },
-        error:{}
+        postForm:{...this.props.postForm},
+        error:{},
+        id:''
     }
 
     componentDidMount(){
-        console.log(this.props)
+        let id = this.props.match.params.id
+        this.props.getParticularPost(id)
+        this.setState({ id:id})
     }
 
-    handleForm = (event) =>{
+    handleForm = (event) => {
         let field = event.target.name
         let value = event.target.value
     
@@ -59,11 +59,11 @@ export class AddPost extends Component {
         this.props.history.push('/posts')
         toastr.success("Post Saved!!")
         this.props.history.push('/posts')
-
     }
 
 
     render() {
+        console.log(this.props.getpostbyid)
         return(
             <div>
                <form className="form">
@@ -88,7 +88,7 @@ export class AddPost extends Component {
                             errorname={this.state.error}  />
                         </div>
 
-                        <button type="button" onClick={(event) =>this.submitForm(event)} className="btn btn-success">Submit</button>
+                        <button type="button" onClick={(event) =>this.submitForm(event)} className="btn btn-success">{this.state.id ? 'Edit' : 'Add'}</button>
                 </form>       
                         
             </div>
@@ -96,15 +96,30 @@ export class AddPost extends Component {
     }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
+    let postForm = {
+        title: '',
+        body: ''
+    }
+    console.log(ownProps)
+    let id = ownProps.match.params.id
+    // if(id){
+    //     postForm = state.post
+    // }
+   
+    // if(this.props.match.params.id){
+    //     this.setState({ postForm: this.props.getpostbyid})
+    // }
     return {
-
+        postForm:postForm,
+        getpostbyid:state.post
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        createPost:(postForm) => dispatch(actionCreator.createPost(postForm))
+        createPost:(postForm) => dispatch(actionCreator.createPost(postForm)),
+        getParticularPost:(id) => dispatch(actionCreator.getPostById(id))
     }
 }
 

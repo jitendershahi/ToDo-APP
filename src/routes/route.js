@@ -9,6 +9,7 @@ export class Routes extends Component {
         return (
             <div>
                 <Switch>
+                    <Route path="/posts/:id" component={AddPost}/>
                     <Route path="/posts" component={Posts}/>
                     <Route path="/add-post" component={AddPost}/>
                     <Redirect from="/" to="/posts" />

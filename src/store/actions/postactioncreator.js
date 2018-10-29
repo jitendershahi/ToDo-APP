@@ -38,3 +38,22 @@ export const createPost = (postForm) => {
           })
     }
 }
+
+export const getParticularPost = (data) => {
+    return {
+        type:actionTypes.GET_PARTICULAR_POST,
+        data:data
+    }
+}
+
+export const getPostById = (id) => {
+    console.log(id)
+    return (dispatch,getState) => {
+        axios.get("https://jsonplaceholder.typicode.com/posts/" + id)
+          .then((response) => {
+              dispatch(getParticularPost(response.data))
+          }).catch((error) => {
+              console.log(error)
+          })
+    }
+}

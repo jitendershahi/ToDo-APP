@@ -20,3 +20,5 @@ export const PostsReducer = (state=initialState.posts, action) => {
         return state
     }
 }
+
+export default PostsReducer;
