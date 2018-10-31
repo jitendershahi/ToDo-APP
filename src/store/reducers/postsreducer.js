@@ -7,9 +7,9 @@ const initialState = {
 export const PostsReducer = (state=initialState.posts, action) => {
 
     switch(action.type){
-        case actionTypes.LOAD_POSTS_SUCCESS:
+        case actionTypes.LOAD_POSTS:
         return action.data
-
+        
         case actionTypes.CREATE_POST_SUCCESS:
         return [
             ...state,

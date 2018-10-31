@@ -4,13 +4,23 @@ import { connect } from 'react-redux'
 import * as actionCreator from '../../store/actions/postactioncreator'
 import  Post  from '../../components/post/post';
 
+import axios from 'axios'
+
 import './posts.css'
+import { bindActionCreators } from '../../../node_modules/redux';
 
 
 export class Posts extends Component {
 
-    componentDidMount(){
-        this.props.posts()
+    componentDidMount() {
+        axios.get("https://jsonplaceholder.typicode.com/posts")
+            .then(res => {
+                let posts = res.data.splice(0,7)
+                this.props.posts(posts)
+            })
+            .catch(err => {
+                console.log(err)
+            })
     }
 
     render() {
@@ -31,9 +41,9 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => {
-    return {
-        posts:() => dispatch(actionCreator.loadPosts())
-    }
+    return bindActionCreators({
+        posts:(data) => dispatch(actionCreator.loadPosts(data))
+    }, dispatch)
 }
 
 
