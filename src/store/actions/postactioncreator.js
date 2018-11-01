@@ -15,14 +15,33 @@ export const createpostSuccess = (data) => {
     }
 }
 
-export const createPost = (postForm) => {
+export const editPostSuccess = (data,id) => {
+    return {
+        type: actionTypes.EDIT_POST_SUCCESS,
+        data: data,
+        id:id
+    }
+}
+
+export const createPost = (postForm, id) => {
+    console.log(id)
     return (dispatch, getState) => {
-        axios.post("https://jsonplaceholder.typicode.com/posts", postForm)
-            .then((response) => {
-                dispatch(createpostSuccess(response.data))
-            }).catch((error) => {
-                console.log(error)
-            })
+        if (id) {
+            axios.put("https://jsonplaceholder.typicode.com/posts/" + id, postForm)
+                .then((response) => {
+                    dispatch(editPostSuccess(response.data,id))
+                }).catch((error) => {
+                    console.log(error)
+                })
+        } else {
+            axios.post("https://jsonplaceholder.typicode.com/posts", postForm)
+                .then((response) => {
+                    dispatch(createpostSuccess(response.data))
+                }).catch((error) => {
+                    console.log(error)
+                })
+        }
+
     }
 }
 

@@ -25,9 +25,8 @@ export class AddPost extends Component {
         if (id) {
             axios.get("https://jsonplaceholder.typicode.com/posts/" + id)
                 .then((response) => {
-                    // dispatch(getParticularPost(response.data))
                     this.props.ParticularPost(response.data)
-                    this.setState({ postForm: response.data })
+                    this.setState({ postForm: response.data, id:id })
                 }).catch((error) => {
                     console.log(error)
                 })
@@ -68,8 +67,7 @@ export class AddPost extends Component {
     submitForm = (event) => {
         event.preventDefault()
         if(!this.checkValidity()) return;
-        this.props.createPost(this.state.postForm)
-        this.props.history.push('/posts')
+        this.props.createPost(this.state.postForm, this.state.id)
         toastr.success("Post Saved!!")
         this.props.history.push('/posts')
     }
@@ -109,27 +107,14 @@ export class AddPost extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-    // let postForm = {
-    //     title: '',
-    //     body: ''
-    // }
-    // let id = ownProps.match.params.id
-    // if(id){
-    //     postForm = state.post
-    // }
-   
-    // if(this.props.match.params.id){
-    //     this.setState({ postForm: this.props.getpostbyid})
-    // }
     return {
-        // postForm:postForm,
         getpostbyid:state.post
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        createPost:(postForm) => dispatch(actionCreator.createPost(postForm)),
+        createPost:(postForm, id) => dispatch(actionCreator.createPost(postForm, id)),
         ParticularPost:(post) => dispatch(actionCreator.ParticularPostById(post))
     }
 }

@@ -15,6 +15,14 @@ export const PostsReducer = (state=initialState.posts, action) => {
             ...state,
             Object.assign({}, action.data)
         ]
+
+        case actionTypes.EDIT_POST_SUCCESS:
+        let array = state.filter(el => el.id != action.id)
+
+        return [
+            ...array,
+            Object.assign({}, action.data)
+        ]
         
         default:
         return state
