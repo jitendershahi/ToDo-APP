@@ -74,10 +74,16 @@ export class AddPost extends Component {
 
 
     render() {
+        let title = ''
+        if(this.state.id){
+            title = "Edit"
+        } else {
+            title = "Add"
+        }
         return(
             <div>
                <form className="form">
-                    <h2>Add Post</h2>
+                    <h2>{title} Post</h2>
                         <div className="input-group" >
                             <Input htmlname="Title name" 
                             label="Title Name"
