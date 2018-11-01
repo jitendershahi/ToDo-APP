@@ -66,9 +66,13 @@ export class AddPost extends Component {
 
     submitForm = (event) => {
         event.preventDefault()
-        if(!this.checkValidity()) return;
+        if (!this.checkValidity()) return;
         this.props.createPost(this.state.postForm, this.state.id)
-        toastr.success("Post Saved!!")
+        if (this.state.id) {
+            toastr.success("Post Edited!!")
+        } else {
+            toastr.success("Post Saved!!")
+        }
         this.props.history.push('/posts')
     }
 
