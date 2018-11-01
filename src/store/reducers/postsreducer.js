@@ -15,7 +15,7 @@ export const PostsReducer = (state=initialState.posts, action) => {
             ...state,
             Object.assign({}, action.data)
         ]
-
+        
         default:
         return state
     }

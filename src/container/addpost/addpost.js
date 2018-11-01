@@ -6,20 +6,33 @@ import * as actionCreator from '../../store/actions/postactioncreator'
 import { connect } from 'react-redux';
 
 import toastr from 'toastr'
+import axios from 'axios'
 
 import './addpost.css';
 
 export class AddPost extends Component {
     state = {
-        postForm:{...this.props.postForm},
+        postForm: {
+            title: '',
+            body: ''
+        },
         error:{},
         id:''
     }
 
-    componentDidMount(){
+    componentDidMount() {
         let id = this.props.match.params.id
-        this.props.getParticularPost(id)
-        this.setState({ id:id})
+        if (id) {
+            axios.get("https://jsonplaceholder.typicode.com/posts/" + id)
+                .then((response) => {
+                    // dispatch(getParticularPost(response.data))
+                    this.props.ParticularPost(response.data)
+                    this.setState({ postForm: response.data })
+                }).catch((error) => {
+                    console.log(error)
+                })
+        }
+
     }
 
     handleForm = (event) => {
@@ -96,11 +109,11 @@ export class AddPost extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-    let postForm = {
-        title: '',
-        body: ''
-    }
-    let id = ownProps.match.params.id
+    // let postForm = {
+    //     title: '',
+    //     body: ''
+    // }
+    // let id = ownProps.match.params.id
     // if(id){
     //     postForm = state.post
     // }
@@ -109,7 +122,7 @@ const mapStateToProps = (state, ownProps) => {
     //     this.setState({ postForm: this.props.getpostbyid})
     // }
     return {
-        postForm:postForm,
+        // postForm:postForm,
         getpostbyid:state.post
     }
 }
@@ -117,7 +130,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = dispatch => {
     return {
         createPost:(postForm) => dispatch(actionCreator.createPost(postForm)),
-        getParticularPost:(id) => dispatch(actionCreator.getPostById(id))
+        ParticularPost:(post) => dispatch(actionCreator.ParticularPostById(post))
     }
 }
 
