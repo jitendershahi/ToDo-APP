@@ -63,7 +63,6 @@ export class AddPost extends Component {
 
 
     render() {
-        console.log(this.props.getpostbyid)
         return(
             <div>
                <form className="form">
@@ -101,7 +100,6 @@ const mapStateToProps = (state, ownProps) => {
         title: '',
         body: ''
     }
-    console.log(ownProps)
     let id = ownProps.match.params.id
     // if(id){
     //     postForm = state.post

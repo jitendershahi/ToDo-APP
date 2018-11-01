@@ -34,7 +34,6 @@ export const getParticularPost = (data) => {
 }
 
 export const getPostById = (id) => {
-    console.log(id)
     return (dispatch,getState) => {
         axios.get("https://jsonplaceholder.typicode.com/posts/" + id)
           .then((response) => {
